@@ -1,0 +1,117 @@
+@import '/src/variables.scss';
+.providers {
+    .crud-header {
+        background-color: $blue-ncs;
+        min-height: 175px;
+        .crud-header-content {
+            padding-top: 40px;
+            margin: auto;
+            h1 {
+                margin: 0px;
+                color: $gunmetal;
+                font-weight: 600;
+            }
+            h2 {
+                font-size: 13px;
+                color: white;
+                margin: 0;
+            }
+            .add-button {
+                margin-left: auto;
+                width: fit-content;
+                button {
+                    border-color: white;
+                    color: white;
+                }
+            }
+        }
+    }
+    .crud-body {
+        margin: auto;
+        margin-top: -34px;
+        // .seach-options {}
+        .crud-form {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            box-shadow: $boxShadow;
+            margin-top: 20px;
+            border-radius: 4px;
+            max-height: 600px;
+            overflow: auto;
+            table {
+                width: 100%;
+                border-radius: 4px;
+            }
+            table tr:nth-of-type(1) th:nth-of-type(1) {
+                border-top-left-radius: 4px;
+            }
+            table tr:nth-of-type(1) th:last-child {
+                border-top-right-radius: 4px;
+            }
+            table tr:last-child td:nth-of-type(1) {
+                border-bottom-left-radius: 4px;
+            }
+            table tr:last-child td:last-child {
+                border-bottom-right-radius: 4px;
+            }
+        }
+    }
+}
+
+.plan-card {
+    position: relative;
+    margin-bottom: 0px !important;
+    padding: 16px 20px;
+    box-shadow: $boxShadow;
+    .plan-container {
+        .price {
+            text-align: center;
+            .amount {
+                font-size: 24px;
+                font-weight: 600;
+            }
+            .period {
+                font-size: 12px;
+                font-weight: 200;
+                margin-left: 6px;
+            }
+        }
+        .plan-type {
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+            /* position: absolute; */
+            right: 30px;
+            top: -15px;
+            background: #119691;
+            color: white;
+            padding: 0px 7px;
+            border-radius: 13px;
+            height: fit-content;
+            font-size: 11px;
+        }
+        .plan-name {
+            font-size: 18px;
+            text-align: center;
+            font-weight: 500;
+            color: #036e8f;
+        }
+    }
+}
+
+::ng-deep .plan-card-order .mat-form-field-wrapper {
+    padding: 0px !important;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    width: 10%;
+}
+
+// max-width: 1440px;
+// margin: 40px auto;

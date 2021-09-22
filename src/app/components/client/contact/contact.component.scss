@@ -1,0 +1,47 @@
+.contact-form {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    background: white;
+    .contact-form-row {
+        .contact-footer {
+            margin-top: 20px !important;
+        }
+        height: 100%;
+        .contact-form-left-side {
+            background-color: white;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            padding: 40px 24px;
+            position: relative;
+            .contact-form-title {
+                font-family: 'Nunito', Helvetica, Arial, Lucida, sans-serif;
+                font-size: 40px;
+                font-weight: 600;
+                color: #333;
+                ;
+            }
+            .contact-form-description {
+                display: block;
+                margin-top: 22px;
+                color: #666;
+                font-size: 18px;
+                font-family: Open Sans, Arial, sans-serif;
+                line-height: 1.8em;
+            }
+            .left-footer {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: auto;
+                bottom: 22px;
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+        .contact-form-right-side {
+            padding: 40px 40px;
+        }
+    }
+}
