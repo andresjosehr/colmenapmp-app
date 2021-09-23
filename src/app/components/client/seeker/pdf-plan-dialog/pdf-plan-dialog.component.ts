@@ -23,10 +23,10 @@ export class PdfPlanDialogComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: {plan: Plan, isapres: Array<Isapre>,userProfile: any, coupleProfile:any, burdens: Array<Burden>},
+    @Inject(MAT_DIALOG_DATA) public data: {plan: Plan, isapres: Array<Isapre>,userProfile: any, coupleProfile:any, burdens: Array<Burden>, pdf_benefits: boolean},
     private sanitizer: DomSanitizer
   ) {
-    this.doc=this.transform(`${environment.assetsServerUrl}/storage/pdf/${data.plan.code}.pdf`)
+    this.doc=!data.pdf_benefits ? this.transform(`${environment.assetsServerUrl}/storage/pdf/${data.plan.code}.pdf`) : this.transform(data.plan.pdf_benefits as string)
     console.log(this.doc)
 
   }

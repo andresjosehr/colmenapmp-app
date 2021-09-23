@@ -26,6 +26,7 @@ export interface Plan {
     plan_type_id: number,
     uf_value: number,
     isapre?: Isapre,
+    pdf_benefits?: string,
     plan_type?: PlanType,
     price: number,
     created_at: string,

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8000/api',
-  assetsServerUrl: 'http://localhost:8000',
+  assetsServerUrl: 'https://api.tusuperplan.cl',
 };
 
 /*

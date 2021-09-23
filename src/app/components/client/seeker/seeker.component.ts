@@ -597,6 +597,28 @@ export class SeekerComponent implements OnInit {
        })
       }
     });
+  }
+
+    openPdfPlanDialogCartilla(plan: any){
+
+      console.log({...plan, pdf: plan.pdf_benefits})
+      console.log(plan)
+      const dialogRef = this.dialog.open(PdfPlanDialogComponent, {
+        height: '80%',
+        width: this.innerWidth < 950 ? `90%` : '80%',
+        maxWidth: "100vw",
+        panelClass: 'pdf-dialog',
+        data: {
+         plan: {...plan, pdf: plan.pdf_benefits},
+         isapres: this.isapres,
+         userProfile: {...this.userProfileFormGroup.value, monthly_liquid_income: this.formatPrice(this.userProfileFormGroup.get("monthly_liquid_income")?.value), gender: this.userGender},
+         coupleProfile: {...this.coupleProfileFormGroup.value, monthly_liquid_income: this.formatPrice(this.coupleProfileFormGroup.get("monthly_liquid_income")?.value), gender: this.coupleGender},
+         burdens: this.burdens.map(burden => {
+           return {age: burden.age, gender: burden.gender}
+         }),
+         pdf_benefits: true
+        }
+      });
 
     dialogRef.afterClosed().subscribe(result => {
       // console.log(`Dialog result: ${result}`);
