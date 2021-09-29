@@ -107,7 +107,7 @@
                 font-size: 11px;
                 margin-bottom: 12px;
                 font-weight: 500;
-                color: #046e8f;
+                color: $blue-sapphire;
             }
         }
     }
@@ -119,7 +119,7 @@
     justify-content: space-between;
     margin-bottom: 10px;
     .age-container {
-        background: #119691;
+        background: $green;
         border-radius: 25px;
         height: 22px;
     }
@@ -340,7 +340,7 @@
     }
     .ngx-slider .ngx-slider-bubble {
         background: transparent !important;
-        color: #119691 !important;
+        color: $green !important;
         font-weight: 500 !important;
         padding: 1px 9px 0px !important;
         bottom: 15px !important;
@@ -349,7 +349,7 @@
         z-index: 9;
     }
     .ngx-slider .ngx-slider-bubble.ngx-slider-limit {
-        background: #119691 !important;
+        background: $green !important;
         color: white !important;
         display: none !important;
     }
@@ -429,10 +429,10 @@
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
         box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-        background-color: #046e8f;
+        background-color: $blue-sapphire;
     }
     .mat-accent .mat-pseudo-checkbox-checked {
-        background: #036e8f !important;
+        background: $blue-sapphire !important;
     }
 }
 
@@ -444,15 +444,43 @@
     display: block;
 }
 
+.plans-info-btn{
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 10px;
+    span{
+        margin-top: 0px;
+        background: #ffffff;
+        color: #636363;
+        font-size: 13px;
+        border: 1px solid rgba(0,0,0,.30);
+    }
+}
+
+.plan-action-btn{
+    .secundary-action{
+        width: 32%; 
+        font-size: 14px; 
+        margin-top: 10px;
+        background-color: $blue-sapphire;
+    }
+}
 .provider-name {
     margin-top: 2px;
-    line-height: 1;
+    font-size: 15px;
+    line-height: 1.5 !important;
     display: flex;
     justify-content: space-between;
 }
 
+.cobertura-text{
+    font-weight: 500; 
+    font-size: 15px;
+    color: $blue-sapphire;
+}
+
 .provider-name-feature {
-    color: #036e8f;
+    color: $blue-sapphire;
     font-weight: 600;
     font-size: 13px;
     letter-spacing: .3px;
@@ -472,8 +500,8 @@ div div div .plan-card-real {
 
 .plan-card {
     position: relative;
-    margin-bottom: 0px !important;
-    padding: 16px 20px;
+    margin-bottom: 0px !important;    
+    padding: 25px 20px;
     .plan-container {
         .price {
             text-align: center;
@@ -484,7 +512,6 @@ div div div .plan-card-real {
             .period {
                 font-size: 12px;
                 font-weight: 200;
-                margin-left: 6px;
             }
         }
         .plan-type {
@@ -494,7 +521,7 @@ div div div .plan-card-real {
             /* position: absolute; */
             right: 30px;
             top: -15px;
-            background: #119691;
+            background: $green;
             color: white;
             padding: 0px 7px;
             border-radius: 13px;
@@ -502,12 +529,12 @@ div div div .plan-card-real {
             font-size: 11px;
         }
         .plan-name-container {
-            height: 45px;
             .plan-name {
-                font-size: 15px;
-                text-align: center;
-                font-weight: 500;
-                color: #036e8f;
+                margin-bottom: 5px;
+                font-size: 23px;
+                text-align: left;
+                font-weight: 600;
+                color: $blue-sapphire;
                 line-height: 1.2;
             }
         }
@@ -544,7 +571,6 @@ div div div .plan-card-real {
         width: 100%;
         border-radius: 16px;
         height: inherit;
-        min-height: 125px;
         h4 {
             font-weight: 500;
             margin-bottom: 2px;
@@ -570,7 +596,7 @@ mat-paginator {
 }
 
 .result-count {
-    background: #119691;
+    background: $green;
     color: white;
     padding: 0px;
     border-radius: 7px;
@@ -584,10 +610,11 @@ mat-paginator {
     .amount {
         display: block;
         font-size: 21px;
-        font-weight: 500;
+        font-weight: 600;
     }
     .results-text {
-        font-size: 12px;
+        font-size: 15px;
+        font-weight: 500;
         display: block;
         margin-bottom: 8px;
     }
@@ -623,9 +650,9 @@ mat-paginator {
     font-weight: 700;
 }
 
-::ng-deep .plan-seeker .plan-card-order .mat-form-field-wrapper {
-    padding: 0px !important;
-}
+// ::ng-deep .plan-seeker .plan-card-order .mat-form-field-wrapper {
+//     padding: 0px !important;
+// }
 
 ::ng-deep .pdf-dialog .mat-dialog-container {
     padding-bottom: 0px !important;
@@ -706,9 +733,9 @@ mat-paginator {
     width: 100%;
 }
 
-::ng-deep .profile .mat-form-field-wrapper {
-    padding-bottom: 5px;
-}
+// ::ng-deep .profile .mat-form-field-wrapper {
+//     padding-bottom: 5px;
+// }
 
 ::ng-deep .profile .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: .2em 0 .6em 0 !important;
@@ -765,7 +792,7 @@ mat-paginator {
     margin-left: 8px;
     font-weight: 500;
     letter-spacing: .3px;
-    background: #036e8f;
+    background: $blue-sapphire;
     color: white;
     border-radius: 4px;
     text-align: center;
@@ -811,6 +838,47 @@ mat-paginator {
 
 .seek-btn {
     animation: shakeAnim 8s infinite linear;
+    width: 100%; 
+    background: $green; 
+    color: white; 
+    padding: 1px 12px; 
+    border-radius: 10px; 
+    height: 40px; 
+    font-size: 22px;
+    margin: 9px 0;
+}
+
+.excedente{
+    font-weight: 500;
+    color: $green;
+    margin-bottom: -8px; 
+    display: flex; 
+    justify-content: center;
+}
+.solicitar-plan-btn{
+    width: 32%; 
+    font-size: 14px; 
+    margin-top: 10px;
+    background-color: $green;
+}
+
+.green-color{
+    color: $green;
+}
+
+.contact-section{
+    button{
+        background-color: $blue-sapphire;
+    }
+    .asesoria-text{
+        font-weight: 500; 
+        color: $blue-sapphire;
+        display: block; 
+        height: -webkit-fit-content; 
+        height: -moz-fit-content; 
+        height: fit-content; 
+        margin-top: 3px;
+    }
 }
 
 @keyframes shakeAnim {
