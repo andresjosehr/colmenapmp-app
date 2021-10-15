@@ -110,6 +110,7 @@ import { ManagePlanComponent } from '../../administration/manage-plan/manage-pla
 export class SeekerComponent implements OnInit {
   title = 'Working with Pipe';
   checkProviders=false;
+  checkRegions=false;
   titleCasePipe=new TitleCasePipe()
   testValue = this.titleCasePipe.transform('firstletter should be upper case.');
   
@@ -414,7 +415,7 @@ export class SeekerComponent implements OnInit {
                 this.valueHospitable,
                 this.valueAmbulatory,
                 this.getTerm(),
-                this.userProfileFormGroup.get("region_id")?.value | 0,
+                this.getRegions(),
                 this.getOrderBy(),
                 this.getOrderType(),
                 firstTime
@@ -696,6 +697,7 @@ export class SeekerComponent implements OnInit {
       return isapres;
 
   }
+
   getProviders(){
     let providers: any = []
       if(this.providersFormGroup){
@@ -707,8 +709,22 @@ export class SeekerComponent implements OnInit {
         }
       }
       return providers;
-
   }
+
+
+  getRegions(){
+    let regions: any = []
+      if(this.regionsFormGroup){
+        regions = this.regionsFormGroup.value.regions
+      } else {
+        for (let index = 1; index < 86; index++) {
+          
+          (index!=2) && regions.push(index);
+        }
+      }
+      return regions;
+  }
+
   getOrderBy(){ return this.generalFormGroup.get("orderBy")?.value }
   getOrderType(){ return this.generalFormGroup.get("orderType")?.value }
   getTerm(){ return this.generalFormGroup.get("term")?.value }
@@ -753,6 +769,10 @@ export class SeekerComponent implements OnInit {
 
       this.providersFormGroup=this.formBuilder.group({
         providers: [this.providers.map(provider => provider.id)]
+      });
+
+      this.regionsFormGroup=this.formBuilder.group({
+        regions: [this.regions.map(region => region.id)]
       });
 
       this.providersFormGroup.valueChanges.subscribe(value => {
@@ -856,6 +876,20 @@ export class SeekerComponent implements OnInit {
     
     this.checkProviders= !this.checkProviders
   }
+
+
+
+  checkUncheckRegions(){
+    let regions = []
+
+    for (let index = 1; index < 86; index++) {
+      regions.push(index);
+    }
+
+    !this.checkRegions ? this.regionsFormGroup.setValue({regions:[]}) : this.regionsFormGroup.setValue({regions})
+    
+    this.checkRegions= !this.checkRegions
+  }
     
   numberOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
@@ -902,7 +936,9 @@ export class SeekerComponent implements OnInit {
     return Math.round((x*10)/5)*5;
   }
 
-  formatProvidersForShow(providers: any): Array<{provider_data: {name: string}, percentage_hospitable: string, percentage_ambulatory: string}>{
+  formatProvidersForShow(plan: Plan): Array<{provider_data: {name: string}, percentage_hospitable: string, percentage_ambulatory: string}>{
+
+    const providers = plan.providers
     let providersForShow: any=[];
     let restante!: any
     this.providersFiltered.map(providerFiltered =>{
@@ -913,9 +949,11 @@ export class SeekerComponent implements OnInit {
           return false
         }
         return true
-      })
-    })
-    providersForShow = restante ? [...providersForShow, ...restante ] : providers
+      });
+    });
+
+    providersForShow = !restante ? [...providersForShow, ...restante ] : providers
+
     return providersForShow
 
   }
@@ -989,6 +1027,7 @@ export class SeekerComponent implements OnInit {
   seekPlans(){
 
     if(this.getProfileValid()){
+
       this.page=1;
       this.seekerObservable$.next(false); 
       this.menuCheck.setValue(!this.menuCheck.value)

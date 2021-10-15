@@ -445,9 +445,6 @@
 }
 
 .plans-info-btn{
-    display: flex; 
-    justify-content: space-between; 
-    margin-top: 10px;
     span{
         margin-top: 0px;
         background: #ffffff;
@@ -536,6 +533,7 @@ div div div .plan-card-real {
                 font-weight: 600;
                 color: $blue-sapphire;
                 line-height: 1.2;
+                text-align:center;
             }
         }
     }

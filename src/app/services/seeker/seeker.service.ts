@@ -30,7 +30,7 @@ export class SeekerService {
       hospitablePercentage: number,
       ambulatoryPercentage: number,
       term: string,
-      regionID: number,
+      regions: Array <any>,
       orderBy: string,
       orderType: string,
       firstTime: boolean
@@ -42,7 +42,7 @@ export class SeekerService {
         params = params.append('planTypes',  planTypes.join(', '));
         params = params.append('isapres',  isapres.join(', '));
         params = params.append('providers',  providers.join(', '));
-        params = params.append('regionID', regionID.toString());
+        params = params.append('regions', regions.join(', '));
         params = params.append('ambulatoryPercentage', ambulatoryPercentage.toString());
         params = params.append('hospitablePercentage', hospitablePercentage.toString());
         params = params.append('page', page.toString());

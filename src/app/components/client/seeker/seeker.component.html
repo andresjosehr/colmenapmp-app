@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="profile" fxLayout='row warp' fxLayoutGap="0px grid" [formGroup]='userProfileFormGroup'>
-                            <div fxFlex='70' class="profile-field-container">
+                            <!-- <div fxFlex='70' class="profile-field-container">
                                 <div class="w-100">
                                     <label class='input-label' for="region_id">Región : </label>
                                     <mat-form-field style="font-size: 12px;" class="w-100">
@@ -57,7 +57,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
-                            </div>
+                            </div> -->
                             <div fxFlex='30' class="profile-field-container">
                                 <div class="w-100">
                                     <label class='input-label' for="age">Edad: </label>
@@ -66,7 +66,7 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div fxFlex='100' class="profile-field-container">
+                            <div fxFlex='70' class="profile-field-container">
                                 <div class="w-100" style='margin-top: 5px;'>
                                     <label class='input-label' for="monthly_liquid_income">Ingreso Mensual Líquido: </label>
                                     <mat-form-field style="font-size: 12px;" class="w-100">
@@ -219,6 +219,45 @@
 
                     </div>
                 </mat-card>
+
+
+                <!-- Starts region section -->
+                <mat-card class="search-section">
+                    <div class="clinic">
+                        <div class="clinic-header">
+                            <div>
+                                <span class="search-section-title">Regiones</span>
+                            </div>
+                            <div>
+                                <button mat-stroked-button (click)='checkUncheckRegions()'>
+                                    
+  
+                                <span *ngIf='!checkRegions'>Desmarcar Todo</span>
+                                <span *ngIf='checkRegions'>Marcar Todo</span>                                
+                            </button>
+                            </div>
+                        </div>
+
+                        <!-- <mat-option *ngFor='let region of regions' [value]='region.id'>{{region.code}} {{region.name | titlecase}}</mat-option> -->
+
+                        <div *ngIf='regionsFormGroup' class="clinic-container" [formGroup]='regionsFormGroup'>
+                            <mat-selection-list formControlName='regions'>
+                                <ng-container *ngFor="let region of regions">
+                                    <mat-list-option [value]='region.id'>
+                                        <span *ngTippy='{content: region.name}' style="font-size: 12px;">
+                                            {{region.code}} {{ region.name | titlecase}}
+                                        </span>
+                                    </mat-list-option>
+
+
+                                </ng-container>
+                            </mat-selection-list>
+                        </div>
+                    </div>
+                </mat-card>
+                <!-- Ends region section -->
+
+
 
 
                 <!-- Starts clinic section -->
@@ -378,38 +417,11 @@
                     </mat-card>
                 </div>
 
-
-                <!-- <div *ngIf='generalFormGroup' fxFlex='36' fxFlex.lt-md=100 class='seach-options' [formGroup]='generalFormGroup'> -->
-                <!-- <mat-card class='plan-card plan-card-order' style="padding: 9px 20px;">
-                        <span class='search-section-title'>Cobertura Hospitalaria</span>
-                        <div class="custom-slider">
-                            <ngx-slider (userChangeEnd)="this.plans.data=null; this.seekerObservable$.next(true)" [(value)]="valueHospitable" [options]="optionsHospitable"></ngx-slider>
-                        </div>
-                    </mat-card> -->
-                <!-- </div> -->
-
-                <!-- <div *ngIf='generalFormGroup' fxFlex='36' fxFlex.lt-md=100 class='seach-options' [formGroup]='generalFormGroup'> -->
-                <!-- <mat-card class='plan-card plan-card-order' style="padding: 9px 20px;">
-                        <span class='search-section-title'>Cobertura Ambulatoria</span>
-                        <div class="custom-slider">
-                            <ngx-slider (userChangeEnd)="this.plans.data=null; this.seekerObservable$.next(true)" [(value)]="valueAmbulatory" [options]="optionsAmbulatory"></ngx-slider>
-                        </div>
-                    </mat-card> -->
-                <!-- </div> -->
-
                 <ng-container>
                     <!-- *ngIf='!plans?.data' [@inOutAnimationSpinner]="!plans?.data ? 'in' : 'out'" -->
                     <div *ngIf='(getProfileValid() && (plans!==undefined) && (plans?.data?.length!==0)) || plans===undefined' fxFlex='100' style='position: absolute; left: 0; right: 0; margin: auto;'>
                         <mat-spinner style='margin: 200px auto;z-index: 0;'></mat-spinner>
                     </div>
-
-                    <!-- <div *ngIf='plans===undefined' fxFlex='100' class='main-messsage'>
-                        <mat-card>
-                            <div>
-                                Debes ingresar tu edad y tu ingreso mensual para poder darte los mejores planes que se adapten a tu perfil. Luego pulsa en el botón "Buscar" y listo.
-                            </div>
-                        </mat-card>
-                    </div> -->
 
                     <div *ngIf='plans && plans?.data?.length===0' fxFlex='100' class='main-messsage'>
                         <mat-card>
@@ -419,87 +431,69 @@
                         </mat-card>
                     </div>
 
-                    <div class='plan-animation' fxFlex='50' fxFlex.lt-md='50' fxFlex.lt-sm="100" *ngFor="let plan of plans | paginate: { id: 'plans', itemsPerPage :15, currentPage: p || 0, totalItems: plans?.total || 0}">
+                    <div class='plan-animation' fxFlex='100' fxFlex.lt-md='50' fxFlex.lt-sm="100" *ngFor="let plan of plans | paginate: { id: 'plans', itemsPerPage :15, currentPage: p || 0, totalItems: plans?.total || 0}">
                         <mat-card class='plan-card plan-card-real' matBadge="!" matBadgeColor='warn' matBadgeSize="large" [matBadgeHidden]="plan.price >= this.get10percent()" [ngStyle]='{border: plan.price < this.get10percent() ? "5px solid #f44336" : "5px solid white"}'>
                             <div class="plan-container">
-                                <div *ngIf='checkIfLoggedIn()' class="plan-actions-container" style="margin-bottom: 15px;display: flex; justify-content: space-between;">
-                                    <button (click)='openEditPlanDialog(plan)' style='width: 47%; border-color: #036e8f; color: #036e8f;' color="primary" mat-stroked-button>
-                                        <mat-icon>edit</mat-icon> Editar
-                                    </button>
-                                    <button style='width: 47%; border-color: #cc3868; color: #cc3868;' color="primary" mat-stroked-button>
-                                        <mat-icon>delete</mat-icon> Eliminar
-                                    </button>
-                                </div>
-                                <div fxLayout='row wrap'>
-                                    <div fxFlex='55'>
+                                <div fxLayout='row warp' fxLayoutGap='20px grid'>
+                                    <div fxFlex=100 style="text-align:center;">
                                         <div class='plan-name-container'>
                                             <h3 class="plan-name">{{plan.name | titlecase}}</h3>
                                         </div>
-                                        <div [id]='"isapre-benefits-"+plan.isapre?.id'>
-                                            <button style='line-height: 1;padding: 3px 15px;font-size: 12px;' mat-stroked-button>Beneficios</button>
-                                        </div>
+                                        <mat-divider style="margin: 14px auto !important;margin-bottom: 10px !important;width: 100% !important;"></mat-divider>
                                     </div>
-                                    <div fxFlex='45'>
-                                        <div class="price" style="margin-bottom: 11px 0;">
-                                            <span class="amount">${{plan.price | number:'.0-0':'es'}}</span>
-                                            <span class="period">/mes</span>
-                                        </div>
-                                        <div class='excedente'>
-                                            <!-- <mat-icon style="font-size: 22px;"> monetization_on</mat-icon> -->
-                                            <span style="display: block; margin-top: 2px;" *ngIf='getExcedent(plan.price)>0'>Genera ${{getExcedent(plan.price)  | number:'.0-0':'es'}} de excedentes</span>
-                                            <span style="display: block; margin-top: 2px;" *ngIf='getExcedent(plan.price)<0'>No genera excedente</span>
-                                        </div>
+                                    <div fxFlex=30>
+                                        <div style='text-align:center'>
+                                            <div style='margin-top:40px'>
+                                                <div class="price" style="margin-bottom: 11px 0;">
+                                                    <span class="amount">${{plan.price | number:'.0-0':'es'}}</span>
+                                                    <span class="period">/mes</span>
+                                                </div>
+                                                <div class='excedente'>
+                                                    <!-- <mat-icon style="font-size: 22px;"> monetization_on</mat-icon> -->
+                                                    <span style="display: block; margin-top: 2px;" *ngIf='getExcedent(plan.price)>0'>Genera ${{getExcedent(plan.price)  | number:'.0-0':'es'}} de excedentes</span>
+                                                    <span style="display: block; margin-top: 2px;" *ngIf='getExcedent(plan.price)<0'>No genera excedente</span>
+                                                </div>
+                                                <div [id]='"isapre-benefits-"+plan.isapre?.id' style='margin-top: 18px;'>
+                                                    <button style='line-height: 1;padding: 3px 15px;font-size: 12px;' mat-stroked-button>Beneficios</button>
+                                                </div>
+                                            </div>
+                                        </div>        
                                     </div>
-                                </div>
-                                <mat-divider style="margin: 14px auto !important;margin-bottom: 10px !important;"></mat-divider>
-                                <div fxLayout='row warp' style="width: 100%;">
-
-                                    <!-- <div fxFlex='100' style="text-align: center;" [id]='"isapre-benefits-"+plan.isapre?.id'>
-                                        <button style='line-height: 1;padding: 5px 15px;width: 100%' mat-stroked-button>Beneficios</button>
-                                    </div> -->
-
-                                    <div fxFlex='100'>
+                                    <div fxFlex='50'>
                                         <div class="mid-container">
                                             <div class="hospitalizacion-box">
-                                                <!-- <div style="display:flex; justify-content:space-between">
-                                                    <div class='providers-button' *ngIf='plan.providers.length > 0'>
-                                                        <ng-container *ngTippy="{content: getPlanProviderHTML(plan.providers)}">
-                                                            <button style="font-size: 12px;height: 24px;line-height: 1;margin-bottom: 6px;" mat-stroked-button>
-                                                                Ver todos 
-                                                                <mat-icon style='font-size: 16px;height: 16px;width: 16px;color: #106e8f;'>remove_red_eye</mat-icon>
-                                                            </button>
-                                                        </ng-container>
-                                                    </div>
-                                                </div> -->
-                                                <!-- <hr style='margin: 0;border-color: #8c8c8c2e;'> -->
                                                 <ul style="list-style: none;padding: 0;font-size: 12px;font-weight: 500;color: #8c8c8c;margin-top: 0;">
-                                                    <li class="provider-name" style="margin-bottom: 8px;">
-                                                        <div class='search-section-title' style="width: 70%;">
-                                                            Clinica/Hospital
-                                                        </div>
-                                                        <div style="width: 30%; display: flex;justify-content: space-between;">
-                                                            <div class='search-section-title'>Hosp.</div>
-                                                            <div class='search-section-title'>Amb.</div>
-                                                        </div>
-                                                    </li>
-                                                    <ng-container *ngFor='let providerFormated of formatProvidersForShow(plan.providers); let i = index'>
-                                                        <li *ngIf='providerFormated.provider_data' [class]="providersFormGroup.get('providers')?.value.length < 4 && checkProviderFeature(providerFormated) ? 'provider-name-feature provider-name':'provider-name'">
-                                                            <div style="width: 70%;" *ngTippy='{content: providerFormated.provider_data.name}'>
-                                                                <mat-icon style="margin-right:5px;font-size: 12px;width: 12px;height: 12px;color: #24b300;">check_circle_outline</mat-icon> 
-                                                                {{ ((providerFormated.provider_data.name.length>40) ? ((providerFormated.provider_data.name) | slice:0:40 | titlecase)+'...' : (providerFormated.provider_data.name | titlecase)) }}
+                                                    <div>
+                                                        <li class="provider-name" style="margin-bottom: 8px;">
+                                                            <div class='search-section-title' style="width: 70%;">
+                                                                Clinica/Hospital
                                                             </div>
                                                             <div style="width: 30%; display: flex;justify-content: space-between;">
-                                                                <div *ngIf='this.round5(providerFormated.percentage_hospitable)!=0'>{{this.round5(providerFormated.percentage_hospitable || 10)}}%</div>
-                                                                <div *ngIf='this.round5(providerFormated.percentage_hospitable)==0'>N/A</div>
-
-                                                                <div *ngIf='this.round5(providerFormated.percentage_ambulatory)!=0'>{{this.round5(providerFormated.percentage_ambulatory || 10)}}%</div>
-                                                                <div *ngIf='this.round5(providerFormated.percentage_ambulatory)==0'>N/A</div>
-                                                            </div>
-                                                            <div>
-
+                                                                <div class='search-section-title'>Hosp.</div>
+                                                                <div class='search-section-title'>Amb.</div>
                                                             </div>
                                                         </li>
-                                                    </ng-container>
+                                                    </div>
+                                                    <div>
+                                                        <ng-container *ngFor='let providerFormated of formatProvidersForShow(plan); let i = index'>
+                                                            <li *ngIf='providerFormated.provider_data' [class]="providersFormGroup.get('providers')?.value.length < 4 && checkProviderFeature(providerFormated) ? 'provider-name-feature provider-name':'provider-name'">
+                                                                <div style="width: 70%;" *ngTippy='{content: providerFormated.provider_data.name}'>
+                                                                    <mat-icon style="margin-right:5px;font-size: 12px;width: 12px;height: 12px;color: #24b300;">check_circle_outline</mat-icon> 
+                                                                    {{ ((providerFormated.provider_data.name.length>40) ? ((providerFormated.provider_data.name) | slice:0:40 | titlecase)+'...' : (providerFormated.provider_data.name | titlecase)) }}
+                                                                </div>
+                                                                <div style="width: 30%; display: flex;justify-content: space-between;">
+                                                                    <div *ngIf='this.round5(providerFormated.percentage_hospitable)!=0'>{{this.round5(providerFormated.percentage_hospitable || 10)}}%</div>
+                                                                    <div *ngIf='this.round5(providerFormated.percentage_hospitable)==0'>N/A</div>
+
+                                                                    <div *ngIf='this.round5(providerFormated.percentage_ambulatory)!=0'>{{this.round5(providerFormated.percentage_ambulatory || 10)}}%</div>
+                                                                    <div *ngIf='this.round5(providerFormated.percentage_ambulatory)==0'>N/A</div>
+                                                                </div>
+                                                                <div>
+
+                                                                </div>
+                                                            </li>
+                                                        </ng-container>
+                                                    </div>
 
                                                     <!-- <mat-icon> vertical_align_top</mat-icon> -->
 
@@ -524,34 +518,34 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div fxFlex='100'>
+                                    <div fxFlex='20'>
                                         <div class="plans-info-btn">
-                                            <div style="width: 32%;">
+                                            <div style="width: 100%;margin-top: 10px">
                                                 <span class="isapre-name">Tipo: {{plan.plan_type?.name}}</span>
                                             </div>
-                                            <div style="width: 32%;">
+                                            <div style="width: 100%;margin-top: 10px">
                                                 <span class="isapre-name">Factor B: {{plan.base_factor | number:'.0-2':'es'}}</span>
                                             </div>
-                                            <div style="width: 32%;">
+                                            <div style="width: 100%;margin-top: 10px">
                                                 <span class="isapre-name">UF: {{plan.uf_value | number:'.0-2':'es'}}</span>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                
+                                
+                                <div fxLayout='row warp' style="width: 100%;">
                                     <div class='plan-action-btn' fxFlex='100' style='margin-top: 2px;'>
                                         <div style='display: flex;justify-content: space-between;'>
-                                            <button style="width:48%" class='secundary-action' (click)='openPdfPlanDialog(plan)' color="primary" mat-raised-button>
+                                            <button style="width:33%" class='secundary-action' (click)='openPdfPlanDialog(plan)' color="primary" mat-raised-button>
                                                     Ver plan
                                             </button>
-                                            <button style="width:48%" class='secundary-action' (click)='openPdfPlanDialogCartilla(plan)' color="primary" mat-raised-button>
+                                            <button style="width:33%" class='secundary-action' (click)='openPdfPlanDialogCartilla(plan)' color="primary" mat-raised-button>
                                                     Beneficios
                                             </button>
-                                        </div>
-                                    </div>
-                                    <div class='plan-action-btn' fxFlex='100' style='margin-top: 2px;'>
-                                        <div style='display: flex;justify-content: space-between;'>
-                                            <button style="width:100%" class='solicitar-plan-btn' (click)='openContactForm(plan)' color="primary" mat-raised-button>
-                                                    Solicitar
-                                            </button>
+                                            <button style="width:33%" class='solicitar-plan-btn' (click)='openContactForm(plan)' color="primary" mat-raised-button>
+                                                Solicitar
+                                        </button>
                                         </div>
                                     </div>
                                 </div>
