@@ -717,10 +717,9 @@ export class SeekerComponent implements OnInit {
       if(this.regionsFormGroup){
         regions = this.regionsFormGroup.value.regions
       } else {
-        for (let index = 1; index < 86; index++) {
-          
-          (index!=2) && regions.push(index);
-        }
+        regions.push(4);
+        regions.push(21);
+        regions.push("5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20");
       }
       return regions;
   }
@@ -771,8 +770,13 @@ export class SeekerComponent implements OnInit {
         providers: [this.providers.map(provider => provider.id)]
       });
 
+      const regions = [];
+      regions.push(4);
+      regions.push(21);
+      regions.push("5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20");
+
       this.regionsFormGroup=this.formBuilder.group({
-        regions: [this.regions.map(region => region.id)]
+        regions: [regions]
       });
 
       this.providersFormGroup.valueChanges.subscribe(value => {
@@ -882,9 +886,9 @@ export class SeekerComponent implements OnInit {
   checkUncheckRegions(){
     let regions = []
 
-    for (let index = 1; index < 86; index++) {
-      regions.push(index);
-    }
+    regions.push(4);
+    regions.push(21);
+    regions.push("5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20");
 
     !this.checkRegions ? this.regionsFormGroup.setValue({regions:[]}) : this.regionsFormGroup.setValue({regions})
     

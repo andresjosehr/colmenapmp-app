@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                             <div fxFlex='70' class="profile-field-container">
-                                <div class="w-100" style='margin-top: 5px;'>
+                                <div class="w-100">
                                     <label class='input-label' for="monthly_liquid_income">Ingreso Mensual Líquido: </label>
                                     <mat-form-field style="font-size: 12px;" class="w-100">
                                         <input id='monthly_liquid_income' (keypress)="numberOnly($event)" formControlName='monthly_liquid_income' matInput>
@@ -226,7 +226,7 @@
                     <div class="clinic">
                         <div class="clinic-header">
                             <div>
-                                <span class="search-section-title">Regiones</span>
+                                <span class="search-section-title">Elige tus zonas de cobertura</span>
                             </div>
                             <div>
                                 <button mat-stroked-button (click)='checkUncheckRegions()'>
@@ -243,14 +243,19 @@
                         <div *ngIf='regionsFormGroup' class="clinic-container" [formGroup]='regionsFormGroup'>
                             <mat-selection-list formControlName='regions'>
                                 <ng-container *ngFor="let region of regions">
+                                    <ng-container *ngIf='region.id==4 || region.id==21'>
                                     <mat-list-option [value]='region.id'>
                                         <span *ngTippy='{content: region.name}' style="font-size: 12px;">
                                             {{region.code}} {{ region.name | titlecase}}
                                         </span>
                                     </mat-list-option>
-
-
                                 </ng-container>
+                                </ng-container>
+                                <mat-list-option value='5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20'>
+                                    <span *ngTippy='{content: "Regiones"}' style="font-size: 12px;">
+                                        Regiones
+                                    </span>
+                                </mat-list-option>
                             </mat-selection-list>
                         </div>
                     </div>
